@@ -31,6 +31,6 @@ public class Group {
     @JoinColumn(name = "form_id")
     private Form form;
 
-    @ManyToMany(mappedBy = "groups")
-    private Set<Student> students = new HashSet<>();
+//    @ManyToMany(mappedBy = "groups")
+//    private Set<Student> students = new HashSet<>();
 }
