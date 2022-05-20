@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table
@@ -19,17 +17,7 @@ public class Student {
 
     private String name;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "students_groups",
-//            joinColumns = @JoinColumn(name = "student_id"),
-//            inverseJoinColumns = @JoinColumn(name = "group_id")
-//    )
-//    private Set<Group> groups = new HashSet<>();
+    private String surname;
 
-
-
-//    @ManyToOne
-//    @JoinColumn(name = "payment_id")
-//    private Payment payment;
+    private String patronymic;
 }

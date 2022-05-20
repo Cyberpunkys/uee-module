@@ -22,7 +22,5 @@ public class Seat {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @ManyToOne
-    @JoinColumn(name = "payment_id")
-    private Payment payment;
+    private boolean isBudget;
 }
