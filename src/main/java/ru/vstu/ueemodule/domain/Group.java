@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,6 +30,6 @@ public class Group {
     @JoinColumn(name = "form_id")
     private Form form;
 
-//    @ManyToMany(mappedBy = "groups")
-//    private Set<Student> students = new HashSet<>();
+    @OneToMany(mappedBy = "group")
+    private Set<Seat> seats;
 }

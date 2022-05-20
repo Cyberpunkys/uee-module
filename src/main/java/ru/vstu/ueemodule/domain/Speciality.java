@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Table
 @Getter
 @Setter
 public class Speciality {

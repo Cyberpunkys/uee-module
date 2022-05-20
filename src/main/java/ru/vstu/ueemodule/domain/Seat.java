@@ -2,6 +2,7 @@ package ru.vstu.ueemodule.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.vstu.ueemodule.domain.key.GroupStudentKey;
 
 import javax.persistence.*;
 
@@ -9,16 +10,17 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Seat {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+
+    @EmbeddedId
+    GroupStudentKey id;
 
     @ManyToOne
+    @MapsId("groupId")
     @JoinColumn(name = "group_id")
     private Group group;
 
     @ManyToOne
+    @MapsId("studentId")
     @JoinColumn(name = "student_id")
     private Student student;
 
