@@ -1,7 +1,6 @@
 package ru.vstu.ueemodule.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,6 +9,8 @@ import java.util.Set;
 @Table(name = "ueegroup")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

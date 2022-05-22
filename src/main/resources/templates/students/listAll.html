@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список студентов</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th> Id </th>
+        <th> Фамилия </th>
+        <th> Имя </th>
+        <th> Отчество </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${studentsList.isEmpty()}">
+        <td colspan="4"> В результате запроса студентов нет</td>
+    </tr>
+    <tr th:each="student : ${studentsList}">
+        <td><span th:text="${student.id}"> Id </span></td>
+        <td><span th:text="${student.surname}"> Surname </span></td>
+        <td><span th:text="${student.name}"> Name </span></td>
+        <td><span th:text="${student.patronymic}"> Patronymic </span></td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<hr/>
+<br/>
+<p>Добавить нового студента в базу данных:</p>
+<form action="#" th:action="@{/students}" th:method="POST" th:object="${newStudent}">
+    <label>
+        Фамилия
+        <input type="text" th:field="*{surname}"/>
+    </label>
+    <br/><br/>
+    <label>
+        Имя
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <br/><br/>
+    <label>
+        Отчество
+        <input type="text" th:field="*{patronymic}"/>
+    </label>
+    <br/><br/>
+    <input type="submit" value="Создать"/>
+</form>
+</body>
+</html>

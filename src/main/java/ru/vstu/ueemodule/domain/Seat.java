@@ -24,5 +24,5 @@ public class Seat {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    private boolean isBudget;
+    private Boolean isBudget;
 }
