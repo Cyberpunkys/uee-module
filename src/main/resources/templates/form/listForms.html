@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список форм обучения</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th> Id</th>
+        <th> Название</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${formList.isEmpty()}">
+        <td colspan="2"> В результате запроса форм обучения нет</td>
+    </tr>
+    <tr th:each="form : ${formList}">
+        <td><span th:text="${form.id}"> Id </span></td>
+        <td><span th:text="${form.name}"> Название </span></td>
+    </tr>
+    </tbody>
+</table>
+<p>Всего форм обучения: <span th:text="${formCount}"></span></p>
+<br/>
+<hr/>
+<br/>
+<p>Добавить новую форму обучения в базу данных:</p>
+<form action="#" th:action="@{/forms}" th:method="POST" th:object="${newForm}">
+    <label>
+        Название
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <br/><br/>
+
+    <input type="submit" value="Создать"/>
+</form>
+<br/>
+<a href="/">Вернуться на главную</a>
+</body>
+</html>

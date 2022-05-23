@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -15,4 +16,22 @@ public class Speciality {
     private Integer id;
 
     private String name;
+
+    @OneToMany(mappedBy = "speciality")
+    private Set<Group> groups;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Speciality)) return false;
+
+        Speciality that = (Speciality) o;
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список уровней образования</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th> Id</th>
+        <th> Название</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${levelsList.isEmpty()}">
+        <td colspan="2"> В результате запроса уровней образования нет</td>
+    </tr>
+    <tr th:each="level : ${levelsList}">
+        <td><span th:text="${level.id}"> Id </span></td>
+        <td><span th:text="${level.name}"> Название </span></td>
+    </tr>
+    </tbody>
+</table>
+<p>Всего уровней образования: <span th:text="${levelCount}"></span></p>
+<br/>
+<hr/>
+<br/>
+<p>Добавить новый уровень образования в базу данных:</p>
+<form action="#" th:action="@{/levels}" th:method="POST" th:object="${newLevel}">
+    <label>
+        Название
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <br/><br/>
+
+    <input type="submit" value="Создать"/>
+</form>
+<br/>
+<a href="/">Вернуться на главную</a>
+</body>
+</html>

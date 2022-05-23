@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список специальностей</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th> Id</th>
+        <th> Название</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${specialitiesList.isEmpty()}">
+        <td colspan="2"> В результате запроса специальностей нет</td>
+    </tr>
+    <tr th:each="speciality : ${specialitiesList}">
+        <td><span th:text="${speciality.id}"> Id </span></td>
+        <td><span th:text="${speciality.name}"> Название </span></td>
+    </tr>
+    </tbody>
+</table>
+<p>Всего специальностей: <span th:text="${specialityCount}"></span></p>
+<br/>
+<hr/>
+<br/>
+<p>Добавить новую специальность в базу данных:</p>
+<form action="#" th:action="@{/specialities}" th:method="POST" th:object="${newSpeciality}">
+    <label>
+        Название
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <br/><br/>
+
+    <input type="submit" value="Создать"/>
+</form>
+<br/>
+<a href="/">Вернуться на главную</a>
+</body>
+</html>

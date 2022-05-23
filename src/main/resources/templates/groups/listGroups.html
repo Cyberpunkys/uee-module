@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список групп</title>
+</head>
+<body>
+<table border="1">
+<thead>
+<tr>
+    <th> Id</th>
+    <th> Название</th>
+    <th> Специальность</th>
+    <th> Уровень образования</th>
+    <th> Форма обучения</th>
+</tr>
+</thead>
+<tbody>
+<tr th:if="${groupList.isEmpty()}">
+    <td colspan="5"> В результате запроса групп нет</td>
+</tr>
+<tr th:each="group : ${groupList}">
+    <td><span th:text="${group.id}"> Id </span></td>
+    <td><span th:text="${group.name}"> Название </span></td>
+    <td><span th:text="${group.speciality.name}"> Специальность </span></td>
+    <td><span th:text="${group.level.name}"> Уровень образования </span></td>
+    <td><span th:text="${group.form.name}"> Форма обучения </span></td>
+</tr>
+</tbody>
+</table>
+<p>Всего групп: <span th:text="${groupCount}"></span></p>
+<br/>
+<hr/>
+<br/>
+<p>Добавить новую группу в базу данных:</p>
+<form action="#" th:action="@{/groups}" th:method="POST" th:object="${newGroup}">
+    <label>
+        Название
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <br/><br/>
+
+    <input type="submit" value="Создать"/>
+</form>
+<br/>
+<a href="/">Вернуться на главную</a>
+</body>
+</html>

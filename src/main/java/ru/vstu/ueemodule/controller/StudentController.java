@@ -11,20 +11,20 @@ import ru.vstu.ueemodule.service.StudentService;
 
 @Controller
 @RequestMapping("/students")
-public class StudentsController {
-
+public class StudentController {
     private final StudentService studentService;
 
-    public StudentsController(StudentService studentService) {
+    public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
     @GetMapping
-    public String allStudentsList(Model model) {
+    public String studentsList(Model model) {
         model.addAttribute("studentsList", studentService.findAll());
         model.addAttribute("newStudent", new Student());
+        model.addAttribute("studentsCount", studentService.count());
 
-        return "students/listAll";
+        return "students/listStudents";
     }
 
     @PostMapping
