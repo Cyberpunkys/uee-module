@@ -27,4 +27,8 @@ public class FormService {
     public Long count() {
         return formRepository.count();
     }
+
+    public void createForm(Form form) {
+        formRepository.save(form);
+    }
 }
