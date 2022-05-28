@@ -22,9 +22,9 @@
 <tr th:each="group : ${groupList}">
     <td><span th:text="${group.id}"> Id </span></td>
     <td><span th:text="${group.name}"> Название </span></td>
-    <td><span th:text="${group.speciality.name}"> Специальность </span></td>
-    <td><span th:text="${group.level.name}"> Уровень образования </span></td>
-    <td><span th:text="${group.form.name}"> Форма обучения </span></td>
+    <td><span th:text="${group.speciality?.name}"> Специальность </span></td>
+    <td><span th:text="${group.level?.name}"> Уровень образования </span></td>
+    <td><span th:text="${group.form?.name}"> Форма обучения </span></td>
 </tr>
 </tbody>
 </table>
@@ -39,7 +39,27 @@
         <input type="text" th:field="*{name}"/>
     </label>
     <br/><br/>
-
+    <label>
+        Форма обучения
+        <select th:field="*{form}">
+            <option th:each="f : ${formList}" th:value="${f.id}" th:text="${f.name}"></option>
+        </select>
+    </label>
+    <br/><br/>
+    <label>
+        Специальность
+        <select th:field="*{speciality}">
+            <option th:each="s : ${specialityList}" th:value="${s.id}" th:text="${s.name}"></option>
+        </select>
+    </label>
+    <br/><br/>
+    <label>
+        Специальность
+        <select th:field="*{level}">
+            <option th:each="l : ${levelList}" th:value="${l.id}" th:text="${l.name}"></option>
+        </select>
+    </label>
+    <br/><br/>
     <input type="submit" value="Создать"/>
 </form>
 <br/>

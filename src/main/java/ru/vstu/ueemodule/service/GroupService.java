@@ -27,4 +27,8 @@ public class GroupService {
     public Long count() {
         return groupRepository.count();
     }
+
+    public void createGroup(Group group) {
+        groupRepository.save(group);
+    }
 }
