@@ -12,6 +12,7 @@
         <th> Фамилия </th>
         <th> Имя </th>
         <th> Отчество </th>
+        <th> Группы</th>
     </tr>
     </thead>
     <tbody>
@@ -23,6 +24,12 @@
         <td><span th:text="${student.surname}"> Surname </span></td>
         <td><span th:text="${student.name}"> Name </span></td>
         <td><span th:text="${student.patronymic}"> Patronymic </span></td>
+        <td>
+            <th:block th:each="seat : ${student.seats}">
+                <span th:text="${seat.group?.name}"> Patronymic </span>
+                <br/>
+            </th:block>
+        </td>
     </tr>
     </tbody>
 </table>
