@@ -1,5 +1,6 @@
 package ru.vstu.ueemodule.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.vstu.ueemodule.domain.Group;
 import ru.vstu.ueemodule.domain.Seat;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class StudentService {
     private final StudentRepository studentRepository;
     private final GroupRepository groupRepository;
@@ -36,6 +38,7 @@ public class StudentService {
     }
 
     public void createStudent(Student newStudent, int[] groups) {
+        studentRepository.save(newStudent);
         for (int groupId : groups) {
             Group currentGroup = groupRepository.findById(groupId).orElseThrow(IllegalArgumentException::new);
             Seat seat = new Seat();
