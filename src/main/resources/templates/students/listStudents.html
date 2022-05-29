@@ -47,6 +47,12 @@
         <input type="text" th:field="*{patronymic}"/>
     </label>
     <br/><br/>
+    <th:block th:each="group : ${groupList}">
+        <input type="checkbox" name="groups" th:value="${group.id}" id="groupsCheck"/>
+        <label for="groupsCheck" th:text="${group.name}"></label>
+        <br/>
+    </th:block>
+    <br/><br/>
     <input type="submit" value="Создать"/>
 </form>
 <br/>

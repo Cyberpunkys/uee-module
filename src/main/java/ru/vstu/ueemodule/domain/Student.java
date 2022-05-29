@@ -3,6 +3,7 @@ package ru.vstu.ueemodule.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,7 @@ public class Student {
     private String patronymic;
 
     @OneToMany(mappedBy = "student")
-    private Set<Seat> seats;
+    private Set<Seat> seats = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
