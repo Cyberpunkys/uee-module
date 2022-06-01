@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@PropertySource("classpath:hello.properties")
+@PropertySource("classpath:main.properties")
 public class MainController {
 
     @Value("${university.name}")

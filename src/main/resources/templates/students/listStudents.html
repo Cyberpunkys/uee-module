@@ -57,6 +57,15 @@
     <th:block th:each="group : ${groupList}">
         <input type="checkbox" name="groups" th:value="${group.id}" id="groupsCheck"/>
         <label for="groupsCheck" th:text="${group.name}"></label>
+        <span> :: </span>
+        <label>
+            Основа обучения:
+            <select name="payments">
+                <option selected th:disabled="${true}">Не выбрано</option>
+                <option th:value="${true}" th:text="Бюджет"></option>
+                <option th:value="${false}" th:text="Договор"></option>
+            </select>
+        </label>
         <br/>
     </th:block>
     <br/><br/>

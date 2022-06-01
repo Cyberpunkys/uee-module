@@ -10,6 +10,7 @@ import ru.vstu.ueemodule.repository.SeatRepository;
 import ru.vstu.ueemodule.repository.StudentRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -37,14 +38,20 @@ public class StudentService {
         return studentRepository.count();
     }
 
-    public void createStudent(Student newStudent, int[] groups) {
-        studentRepository.save(newStudent);
-        for (int groupId : groups) {
+    public void createStudent(Student newStudent, int[] groups, boolean[] payments) {
+        log.info(Arrays.toString(groups));
+        log.info(Arrays.toString(payments));
+        log.info("Equality of arrays' lengths: " + (groups.length == payments.length)); // should be equal
+
+        studentRepository.save(newStudent); // for ID creation sake
+
+        for (int i = 0; i < groups.length; i++) {
+            int groupId = groups[i];
             Group currentGroup = groupRepository.findById(groupId).orElseThrow(IllegalArgumentException::new);
             Seat seat = new Seat();
             seat.setStudent(newStudent);
             seat.setGroup(currentGroup);
-            seat.setIsBudget(true);
+            seat.setIsBudget(payments[i]);
             seatRepository.save(seat);
             newStudent.getSeats().add(seat);
         }
