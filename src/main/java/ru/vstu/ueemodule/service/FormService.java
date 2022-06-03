@@ -1,6 +1,8 @@
 package ru.vstu.ueemodule.service;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.vstu.ueemodule.domain.Form;
 import ru.vstu.ueemodule.repository.FormRepository;
@@ -17,6 +19,7 @@ public class FormService {
         this.formRepository = formRepository;
     }
 
+    @Cacheable("formsAll")
     public List<Form> findAll() {
         Iterable<Form> repositoryAll = formRepository.findAll();
         List<Form> forms = new ArrayList<>();
@@ -25,6 +28,7 @@ public class FormService {
         return forms;
     }
 
+    @Cacheable("formsCount")
     public Long count() {
         return formRepository.count();
     }
@@ -37,6 +41,7 @@ public class FormService {
         return formRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
+    @CacheEvict(value = "formsAll", allEntries = true)
     public void editForm(Integer id, Form editedForm) {
         Form formFromDb = getOne(id);
         BeanUtils.copyProperties(editedForm, formFromDb, "id");
