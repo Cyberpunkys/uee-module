@@ -17,7 +17,11 @@
         <td colspan="2"> В результате запроса уровней образования нет</td>
     </tr>
     <tr th:each="level : ${levelsList}">
-        <td><span th:text="${level.id}"> Id </span></td>
+        <td>
+            <a th:text="${level.id}"
+               th:href="@{/levels/{id}(id=${level.getId()})}"
+               title="Редактировать уровень образования"></a>
+        </td>
         <td><span th:text="${level.name}"> Название </span></td>
     </tr>
     </tbody>

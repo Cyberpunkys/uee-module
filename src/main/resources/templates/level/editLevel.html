@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Подробная информация об уровне образования</title>
+</head>
+<body>
+<h1>Просмотр и редактирование уровня образования</h1>
+<form action="#" th:action="@{/levels/{id}(id=${editLevel.getId()})}" th:method="PUT" th:object="${editLevel}">
+    <label>
+        Название
+        <input type="text" th:field="*{name}">
+    </label>
+    <br/><br/>
+    <input type="submit" th:value="Изменить">
+</form>
+<br/>
+<form action="#" th:action="@{/levels/{id}(id=${editLevel.getId()})}" th:method="DELETE" th:object="${editLevel}">
+    <input type="submit" th:value="Удалить">
+</form>
+<br/><br/>
+<a href="/forms">Вернуться к списку уровней образования</a>
+<br/><br/>
+<a href="/">Вернуться на главную</a>
+</body>
+</html>

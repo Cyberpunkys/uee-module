@@ -1,5 +1,6 @@
 package ru.vstu.ueemodule.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import ru.vstu.ueemodule.domain.Level;
 import ru.vstu.ueemodule.repository.LevelRepository;
@@ -30,5 +31,14 @@ public class LevelService {
 
     public void createLevel(Level level) {
         levelRepository.save(level);
+    }
+
+    public void editLevel(Level levelFromDb, Level editedForm) {
+        BeanUtils.copyProperties(editedForm, levelFromDb);
+        levelRepository.save(levelFromDb);
+    }
+
+    public void deleteLevel(Level levelToDelete) {
+        levelRepository.delete(levelToDelete);
     }
 }
