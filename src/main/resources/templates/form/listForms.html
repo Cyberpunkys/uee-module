@@ -17,7 +17,11 @@
         <td colspan="2"> В результате запроса форм обучения нет</td>
     </tr>
     <tr th:each="form : ${formList}">
-        <td><span th:text="${form.id}"> Id </span></td>
+        <td>
+            <a th:text="${form.id}"
+               th:href="@{/forms/{id}(id=${form.getId()})}"
+               title="Редактировать форму обучения"></a>
+        </td>
         <td><span th:text="${form.name}"> Название </span></td>
     </tr>
     </tbody>

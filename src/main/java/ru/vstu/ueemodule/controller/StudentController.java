@@ -38,4 +38,13 @@ public class StudentController {
 
         return "redirect:/students";
     }
+
+    @GetMapping("{id}")
+    public String studentEditPage(@PathVariable Integer id, Model model) {
+        Student currentStudent = studentService.getOne(id);
+        model.addAttribute("editStudent", currentStudent);
+        model.addAttribute("studentGroups", currentStudent.getSeats());
+
+        return "students/editStudent";
+    }
 }

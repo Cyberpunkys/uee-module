@@ -2,10 +2,7 @@ package ru.vstu.ueemodule.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.vstu.ueemodule.domain.Form;
 import ru.vstu.ueemodule.service.FormService;
 
@@ -31,6 +28,20 @@ public class FormController {
     @PostMapping
     public String createForm(@ModelAttribute("form") Form form) {
         formService.createForm(form);
+
+        return "redirect:/forms";
+    }
+
+    @GetMapping("{id}")
+    public String formEditPage(@PathVariable("id") Form currentForm, Model model) {
+        model.addAttribute("editForm", currentForm);
+
+        return "form/editForm";
+    }
+
+    @PutMapping("{id}")
+    public String editForm(@PathVariable("id") Integer id, @ModelAttribute("editForm") Form editedForm) {
+        formService.editForm(id, editedForm);
 
         return "redirect:/forms";
     }

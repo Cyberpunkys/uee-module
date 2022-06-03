@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Подробная информация о студенте</title>
+</head>
+<body>
+<h1>Просмотр и редактирование данных студента</h1>
+<form action="#" th:action="@{/students/{id}(id=${editStudent.getId()})}" th:method="PATCH" th:object="${editStudent}">
+    <label>
+        Фамилия
+        <input type="text" th:field="*{surname}">
+    </label>
+    <br/><br/>
+    <label>
+        Имя
+        <input type="text" th:field="*{name}">
+    </label>
+    <br/><br/>
+    <label>
+        Отчество
+        <input type="text" th:field="*{patronymic}">
+    </label>
+    <br/><br/>
+    <table>
+        <tr>
+            <th>Группа</th>
+            <th> :: </th>
+            <th>Основа обучения</th>
+        </tr>
+    </table>
+    <th:block th:each="seat : ${studentGroups}">
+        <label for="groupsCheck" th:text="${seat.group.name}"></label>
+        <input type="checkbox" name="groups" th:value="${seat.group.id}" id="groupsCheck"/>
+        <span> :: </span>
+        <select name="payments">
+            <option th:value="${seat.isBudget}" th:text="${seat.isBudget}"></option>
+        </select>
+        <br/>
+    </th:block>
+    <br/><br/>
+    <input type="submit" th:value="Изменить">
+</form>
+<br/><br/>
+<a href="/students">Вернуться к списку студентов</a>
+</body>
+</html>

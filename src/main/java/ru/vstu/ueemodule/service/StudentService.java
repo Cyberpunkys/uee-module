@@ -20,7 +20,11 @@ public class StudentService {
     private final GroupRepository groupRepository;
     private final SeatRepository seatRepository;
 
-    public StudentService(StudentRepository studentRepository, GroupRepository groupRepository, SeatRepository seatRepository) {
+    public StudentService(
+            StudentRepository studentRepository,
+            GroupRepository groupRepository,
+            SeatRepository seatRepository
+    ) {
         this.studentRepository = studentRepository;
         this.groupRepository = groupRepository;
         this.seatRepository = seatRepository;
@@ -56,5 +60,9 @@ public class StudentService {
             newStudent.getSeats().add(seat);
         }
         studentRepository.save(newStudent);
+    }
+
+    public Student getOne(Integer id) {
+        return studentRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 }

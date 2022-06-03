@@ -20,7 +20,11 @@
         <td colspan="4"> В результате запроса студентов нет</td>
     </tr>
     <tr th:each="student : ${studentsList}">
-        <td><span th:text="${student.id}"> Id </span></td>
+        <td>
+            <a th:text="${student.id}"
+               th:href="@{/students/{id}(id=${student.getId()})}"
+               title="Редактировать студента"></a>
+        </td>
         <td><span th:text="${student.surname}"> Surname </span></td>
         <td><span th:text="${student.name}"> Name </span></td>
         <td><span th:text="${student.patronymic}"> Patronymic </span></td>
@@ -54,18 +58,22 @@
         <input type="text" th:field="*{patronymic}"/>
     </label>
     <br/><br/>
+    <table>
+        <tr>
+            <th>Группа</th>
+            <th> :: </th>
+            <th>Основа обучения</th>
+        </tr>
+    </table>
     <th:block th:each="group : ${groupList}">
         <input type="checkbox" name="groups" th:value="${group.id}" id="groupsCheck"/>
         <label for="groupsCheck" th:text="${group.name}"></label>
         <span> :: </span>
-        <label>
-            Основа обучения:
-            <select name="payments">
+            <select name="payments"> <!-- TODO: th:switch maybe? -->
                 <option selected th:disabled="${true}">Не выбрано</option>
                 <option th:value="${true}" th:text="Бюджет"></option>
                 <option th:value="${false}" th:text="Договор"></option>
             </select>
-        </label>
         <br/>
     </th:block>
     <br/><br/>

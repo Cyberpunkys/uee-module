@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Подробная информация о форме обучения</title>
+</head>
+<body>
+<h1>Просмотр и редактирование данных студента</h1>
+<form action="#" th:action="@{/forms/{id}(id=${editForm.getId()})}" th:method="PUT" th:object="${editForm}">
+  <label>
+    Название
+    <input type="text" th:field="*{name}">
+  </label>
+  <br/><br/>
+  <input type="submit" th:value="Изменить">
+</form>
+<br/><br/>
+<a href="/forms">Вернуться к списку форм обучения</a>
+</body>
+</html>
