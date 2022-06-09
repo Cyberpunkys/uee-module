@@ -12,6 +12,7 @@ import ru.vstu.ueemodule.repository.StudentRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -64,5 +65,11 @@ public class StudentService {
 
     public Student getOne(Integer id) {
         return studentRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+
+    public List<Group> getStudentGroups(Student student) { // TODO: maybe Set<Group> ?
+        return student.getSeats().stream()
+                .map(Seat::getGroup)
+                .collect(Collectors.toList());
     }
 }

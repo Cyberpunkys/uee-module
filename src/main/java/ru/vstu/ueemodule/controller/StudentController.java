@@ -43,8 +43,16 @@ public class StudentController {
     public String studentEditPage(@PathVariable Integer id, Model model) {
         Student currentStudent = studentService.getOne(id);
         model.addAttribute("editStudent", currentStudent);
-        model.addAttribute("studentGroups", currentStudent.getSeats());
+        model.addAttribute("studentGroups", studentService.getStudentGroups(currentStudent));
+        model.addAttribute("groupList", groupService.findAll());
 
         return "students/editStudent";
+    }
+
+    @PutMapping("{id}")
+    public String editStudent(@PathVariable("id") Student studentFromDb) {
+
+
+        return "redirect:/students";
     }
 }

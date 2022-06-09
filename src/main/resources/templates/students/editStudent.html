@@ -29,16 +29,20 @@
             <th>Основа обучения</th>
         </tr>
     </table>
-    <th:block th:each="seat : ${studentGroups}">
-        <label for="groupsCheck" th:text="${seat.group.name}"></label>
-        <input type="checkbox" name="groups" th:value="${seat.group.id}" id="groupsCheck"/>
+    <th:block th:each="group : ${groupList}">
+        <label>
+            <span th:text="${group.name}"></span>
+            <input type="checkbox" th:name="groups" th:checked="${#lists.contains(studentGroups, group)}"/>
+        </label>
         <span> :: </span>
-        <select name="payments">
-            <option th:value="${seat.isBudget}" th:text="${seat.isBudget}"></option>
+        <select th:name="payments">
+            <option selected th:disabled="${true}">Не выбрано</option>
+            <option th:selected="${#lists.contains(studentGroups, group)}" th:value="${true}" th:text="Бюджет"></option>
+            <option th:value="${false}" th:text="Договор"></option>
         </select>
-        <br/>
+        <br/><br/>
     </th:block>
-    <br/><br/>
+    <br/>
     <input type="submit" th:value="Изменить">
 </form>
 <br/><br/>

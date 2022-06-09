@@ -5,6 +5,7 @@
     <title>Список студентов</title>
 </head>
 <body>
+<h2>Список студентов</h2>
 <table border="1">
     <thead>
     <tr>
@@ -30,18 +31,20 @@
         <td><span th:text="${student.patronymic}"> Patronymic </span></td>
         <td>
             <th:block th:each="seat : ${student.seats}">
-                <span th:text="${seat.group?.name}"> Patronymic </span>
-                <br/>
+                <table>
+                    <tr>
+                        <td><span th:text="${seat.group?.name} + ' :'"> GroupName </span></td>
+                        <td><span th:text="${seat.isBudget} ? 'Бюджет' : 'Договор'"> isBudget </span></td>
+                    </tr>
+                </table>
             </th:block>
         </td>
     </tr>
     </tbody>
 </table>
 <p>Всего студентов: <span th:text="${studentsCount}"></span></p>
-<br/>
 <hr/>
-<br/>
-<p>Добавить нового студента в базу данных:</p>
+<h4>Добавить нового студента в базу данных:</h4>
 <form action="#" th:action="@{/students}" th:method="POST" th:object="${newStudent}">
     <label>
         Фамилия
@@ -65,18 +68,18 @@
             <th>Основа обучения</th>
         </tr>
     </table>
+    <br/>
     <th:block th:each="group : ${groupList}">
         <input type="checkbox" name="groups" th:value="${group.id}" id="groupsCheck"/>
         <label for="groupsCheck" th:text="${group.name}"></label>
         <span> :: </span>
-            <select name="payments"> <!-- TODO: th:switch maybe? -->
+            <select name="payments">
                 <option selected th:disabled="${true}">Не выбрано</option>
                 <option th:value="${true}" th:text="Бюджет"></option>
                 <option th:value="${false}" th:text="Договор"></option>
             </select>
-        <br/>
+        <br/><br/>
     </th:block>
-    <br/><br/>
     <input type="submit" value="Создать"/>
 </form>
 <br/>
