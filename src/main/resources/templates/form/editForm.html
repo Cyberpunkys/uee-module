@@ -14,6 +14,10 @@
     <br/><br/>
     <input type="submit" th:value="Изменить">
 </form>
+<br/>
+<form action="#" th:action="@{/forms/{id}(id=${editForm.getId()})}" th:method="DELETE" th:object="${editForm}">
+    <input type="submit" th:value="Удалить">
+</form>
 <br/><br/>
 <a href="/forms">Вернуться к списку форм обучения</a>
 </body>

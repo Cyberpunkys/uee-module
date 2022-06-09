@@ -45,4 +45,11 @@ public class FormController {
 
         return "redirect:/forms";
     }
+
+    @DeleteMapping("{id}")
+    public String deleteForm(@PathVariable("id") Form formToDelete) {
+        formService.deleteForm(formToDelete);
+
+        return "redirect:/forms";
+    }
 }

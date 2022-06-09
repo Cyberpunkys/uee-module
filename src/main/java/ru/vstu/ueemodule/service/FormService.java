@@ -33,6 +33,7 @@ public class FormService {
         return formRepository.count();
     }
 
+    @CacheEvict(value = {"formsAll", "formsCount"}, allEntries = true)
     public void createForm(Form form) {
         formRepository.save(form);
     }
@@ -46,5 +47,10 @@ public class FormService {
         Form formFromDb = getOne(id);
         BeanUtils.copyProperties(editedForm, formFromDb, "id");
         formRepository.save(formFromDb);
+    }
+
+    @CacheEvict(value = {"formsAll", "formsCount"}, allEntries = true)
+    public void deleteForm(Form formToDelete) {
+        formRepository.delete(formToDelete);
     }
 }
