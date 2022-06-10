@@ -7,6 +7,8 @@ import ru.vstu.ueemodule.domain.Student;
 import ru.vstu.ueemodule.service.GroupService;
 import ru.vstu.ueemodule.service.StudentService;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping("/students")
 public class StudentController {
@@ -42,6 +44,7 @@ public class StudentController {
     @GetMapping("{id}")
     public String studentEditPage(@PathVariable Integer id, Model model) {
         Student currentStudent = studentService.getOne(id);
+
         model.addAttribute("editStudent", currentStudent);
         model.addAttribute("studentGroups", studentService.getStudentGroups(currentStudent));
         model.addAttribute("groupList", groupService.findAll());
@@ -50,8 +53,13 @@ public class StudentController {
     }
 
     @PutMapping("{id}")
-    public String editStudent(@PathVariable("id") Student studentFromDb) {
-
+    public String editStudent(
+            @PathVariable("id") Student studentFromDb,
+            @RequestParam Map<String, String> form,
+            @RequestParam int[] groups,
+            @RequestParam Boolean[] payments
+    ) {
+        studentService.editStudent(studentFromDb, form, groups, payments);
 
         return "redirect:/students";
     }

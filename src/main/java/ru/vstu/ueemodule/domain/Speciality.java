@@ -17,7 +17,7 @@ public class Speciality {
 
     private String name;
 
-    @OneToMany(mappedBy = "speciality")
+    @OneToMany(mappedBy = "speciality", fetch = FetchType.LAZY)
     private Set<Group> groups;
 
     @Override

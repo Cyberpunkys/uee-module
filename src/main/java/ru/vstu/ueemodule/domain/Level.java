@@ -17,7 +17,7 @@ public class Level {
 
     private String name;
 
-    @OneToMany(mappedBy = "level")
+    @OneToMany(mappedBy = "level", fetch = FetchType.LAZY)
     private Set<Group> groups;
 
     @Override

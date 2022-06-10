@@ -6,20 +6,20 @@
 </head>
 <body>
 <h1>Просмотр и редактирование данных студента</h1>
-<form action="#" th:action="@{/students/{id}(id=${editStudent.getId()})}" th:method="PATCH" th:object="${editStudent}">
+<form action="#" th:action="@{/students/{id}(id=${editStudent.getId()})}" th:method="PUT">
     <label>
         Фамилия
-        <input type="text" th:field="*{surname}">
+        <input type="text" th:value="${editStudent.surname}" th:name="surname">
     </label>
     <br/><br/>
     <label>
         Имя
-        <input type="text" th:field="*{name}">
+        <input type="text" th:value="${editStudent.name}" th:name="name">
     </label>
     <br/><br/>
     <label>
         Отчество
-        <input type="text" th:field="*{patronymic}">
+        <input type="text" th:value="${editStudent.patronymic}" th:name="patronymic">
     </label>
     <br/><br/>
     <table>
@@ -32,11 +32,15 @@
     <th:block th:each="group : ${groupList}">
         <label>
             <span th:text="${group.name}"></span>
-            <input type="checkbox" th:name="groups" th:checked="${#lists.contains(studentGroups, group)}"/>
+            <input type="checkbox"
+                   th:name="groups"
+                   th:checked="${#lists.contains(studentGroups, group)}"
+                   th:value="${group.id}"/>
         </label>
         <span> :: </span>
         <select th:name="payments">
-            <option selected th:disabled="${true}">Не выбрано</option>
+<!--            th:disabled="${true}"-->
+            <option selected th:value="${null}">Не выбрано</option>
             <option th:selected="${#lists.contains(studentGroups, group)}" th:value="${true}" th:text="Бюджет"></option>
             <option th:value="${false}" th:text="Договор"></option>
         </select>

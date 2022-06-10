@@ -2,6 +2,7 @@ package ru.vstu.ueemodule.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.ArrayUtils;
 import ru.vstu.ueemodule.domain.Group;
 import ru.vstu.ueemodule.domain.Seat;
 import ru.vstu.ueemodule.domain.Student;
@@ -9,9 +10,7 @@ import ru.vstu.ueemodule.repository.GroupRepository;
 import ru.vstu.ueemodule.repository.SeatRepository;
 import ru.vstu.ueemodule.repository.StudentRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,8 +50,7 @@ public class StudentService {
         studentRepository.save(newStudent); // for ID creation sake
 
         for (int i = 0; i < groups.length; i++) {
-            int groupId = groups[i];
-            Group currentGroup = groupRepository.findById(groupId).orElseThrow(IllegalArgumentException::new);
+            Group currentGroup = groupRepository.findById(groups[i]).orElseThrow(IllegalArgumentException::new);
             Seat seat = new Seat();
             seat.setStudent(newStudent);
             seat.setGroup(currentGroup);
@@ -71,5 +69,28 @@ public class StudentService {
         return student.getSeats().stream()
                 .map(Seat::getGroup)
                 .collect(Collectors.toList());
+    }
+
+    public void editStudent(Student studentFromDb, Map<String, String> form, int[] groups, Boolean[] payments) {
+        Boolean[] filteredPayments = Arrays.stream(payments)
+                .filter(Objects::nonNull)
+                .toArray(Boolean[]::new);
+
+        studentFromDb.setSurname(form.get("surname"));
+        studentFromDb.setName(form.get("name"));
+        studentFromDb.setPatronymic(form.get("patronymic"));
+        Set<Seat> studentSeats = studentFromDb.getSeats();
+        seatRepository.deleteAll(studentSeats);
+        studentSeats.clear();
+
+        for (int i = 0; i < groups.length; i++) {
+            Group currentGroup = groupRepository.findById(groups[i]).orElseThrow(IllegalArgumentException::new);
+            Seat seat = new Seat();
+            seat.setStudent(studentFromDb);
+            seat.setGroup(currentGroup);
+            seat.setIsBudget(filteredPayments[i]);
+            seatRepository.save(seat);
+            studentFromDb.getSeats().add(seat);
+        }
     }
 }

@@ -17,7 +17,7 @@ public class Form {
 
     private String name;
 
-    @OneToMany(mappedBy = "form")
+    @OneToMany(mappedBy = "form", fetch = FetchType.LAZY)
     private Set<Group> groups;
 
     @Override
