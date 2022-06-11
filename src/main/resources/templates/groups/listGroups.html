@@ -11,65 +11,101 @@
           crossorigin="anonymous">
 </head>
 <body>
-<table class="table">
-<thead>
-<tr>
-    <th> Id</th>
-    <th> Название</th>
-    <th> Специальность</th>
-    <th> Уровень образования</th>
-    <th> Форма обучения</th>
-</tr>
-</thead>
-<tbody>
-<tr th:if="${groupList.isEmpty()}">
-    <td colspan="5"> В результате запроса групп нет</td>
-</tr>
-<tr th:each="group : ${groupList}">
-    <td><span th:text="${group.id}"> Id </span></td>
-    <td><span th:text="${group.name}"> Название </span></td>
-    <td><span th:text="${group.speciality?.name}"> Специальность </span></td>
-    <td><span th:text="${group.level?.name}"> Уровень образования </span></td>
-    <td><span th:text="${group.form?.name}"> Форма обучения </span></td>
-</tr>
-</tbody>
-</table>
-<p>Всего групп: <span th:text="${groupCount}"></span></p>
-<br/>
-<hr/>
-<br/>
-<p>Добавить новую группу в базу данных:</p>
-<form action="#" th:action="@{/groups}" th:method="POST" th:object="${newGroup}">
-    <label>
-        Название
-        <input type="text" th:field="*{name}"/>
-    </label>
-    <br/><br/>
-    <label>
-        Форма обучения
-        <select th:field="*{form}">
-            <option th:each="f : ${formList}" th:value="${f.id}" th:text="${f.name}"></option>
-        </select>
-    </label>
-    <br/><br/>
-    <label>
-        Специальность
-        <select th:field="*{speciality}">
-            <option th:each="s : ${specialityList}" th:value="${s.id}" th:text="${s.name}"></option>
-        </select>
-    </label>
-    <br/><br/>
-    <label>
-        Специальность
-        <select th:field="*{level}">
-            <option th:each="l : ${levelList}" th:value="${l.id}" th:text="${l.name}"></option>
-        </select>
-    </label>
-    <br/><br/>
-    <input type="submit" value="Создать"/>
-</form>
-<br/>
-<a href="/">Вернуться на главную</a>
+<nav class="navbar navbar-expand-lg" style="background-color: #00446d;">
+    <div class="container-fluid">
+        <a class="navbar-brand link-light" href="/">МЭС <span th:text="${name}"></span></a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/students">Cтуденты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/groups">Группы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/specialities">Специальности</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/forms">Формы обучения</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/levels">Уровни образования</a>
+                </li>
+            </ul>
+            <div class="navbar-text text-light">Test</div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th> Id</th>
+            <th> Название</th>
+            <th> Специальность</th>
+            <th> Уровень образования</th>
+            <th> Форма обучения</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${groupList.isEmpty()}">
+            <td colspan="5"> В результате запроса групп нет</td>
+        </tr>
+        <tr th:each="group : ${groupList}">
+            <td><span th:text="${group.id}"> Id </span></td>
+            <td><span th:text="${group.name}"> Название </span></td>
+            <td><span th:text="${group.speciality?.name}"> Специальность </span></td>
+            <td><span th:text="${group.level?.name}"> Уровень образования </span></td>
+            <td><span th:text="${group.form?.name}"> Форма обучения </span></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>Всего групп: <span th:text="${groupCount}"></span></p>
+    <br/>
+    <hr/>
+    <br/>
+    <p>Добавить новую группу в базу данных:</p>
+    <form action="#" th:action="@{/groups}" th:method="POST" th:object="${newGroup}">
+        <label>
+            Название
+            <input type="text" th:field="*{name}"/>
+        </label>
+        <br/><br/>
+        <label>
+            Форма обучения
+            <select th:field="*{form}">
+                <option th:each="f : ${formList}" th:value="${f.id}" th:text="${f.name}"></option>
+            </select>
+        </label>
+        <br/><br/>
+        <label>
+            Специальность
+            <select th:field="*{speciality}">
+                <option th:each="s : ${specialityList}" th:value="${s.id}" th:text="${s.name}"></option>
+            </select>
+        </label>
+        <br/><br/>
+        <label>
+            Специальность
+            <select th:field="*{level}">
+                <option th:each="l : ${levelList}" th:value="${l.id}" th:text="${l.name}"></option>
+            </select>
+        </label>
+        <br/><br/>
+        <input type="submit" value="Создать"/>
+    </form>
+    <br/>
+    <a href="/">Вернуться на главную</a>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>

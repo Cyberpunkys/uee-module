@@ -11,51 +11,88 @@
           crossorigin="anonymous">
 </head>
 <body>
-<h1>Просмотр и редактирование данных студента</h1>
-<form action="#" th:action="@{/students/{id}(id=${editStudent.getId()})}" th:method="PUT">
-    <label>
-        Фамилия
-        <input type="text" th:value="${editStudent.surname}" th:name="surname">
-    </label>
-    <br/><br/>
-    <label>
-        Имя
-        <input type="text" th:value="${editStudent.name}" th:name="name">
-    </label>
-    <br/><br/>
-    <label>
-        Отчество
-        <input type="text" th:value="${editStudent.patronymic}" th:name="patronymic">
-    </label>
-    <br/><br/>
-    <table>
-        <tr>
-            <th>Группа</th>
-            <th> :: </th>
-            <th>Основа обучения</th>
-        </tr>
-    </table>
-    <th:block th:each="group : ${groupList}">
+<nav class="navbar navbar-expand-lg" style="background-color: #00446d;">
+    <div class="container-fluid">
+        <a class="navbar-brand link-light" href="/">МЭС <span th:text="${name}"></span></a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/students">Cтуденты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/groups">Группы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/specialities">Специальности</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/forms">Формы обучения</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/levels">Уровни образования</a>
+                </li>
+            </ul>
+            <div class="navbar-text text-light">Test</div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1>Просмотр и редактирование данных студента</h1>
+    <form action="#" th:action="@{/students/{id}(id=${editStudent.getId()})}" th:method="PUT">
         <label>
-            <span th:text="${group.name}"></span>
-            <input type="checkbox"
-                   th:name="groups"
-                   th:checked="${#lists.contains(studentGroups, group)}"
-                   th:value="${group.id}"/>
+            Фамилия
+            <input type="text" th:value="${editStudent.surname}" th:name="surname">
         </label>
-        <span> :: </span>
-        <select th:name="payments">
-            <option selected th:value="${null}">Не выбрано</option>
-            <option th:selected="${#lists.contains(studentGroups, group)}" th:value="${true}" th:text="Бюджет"></option>
-            <option th:value="${false}" th:text="Договор"></option>
-        </select>
         <br/><br/>
-    </th:block>
-    <br/>
-    <input type="submit" th:value="Изменить">
-</form>
-<br/><br/>
-<a href="/students">Вернуться к списку студентов</a>
+        <label>
+            Имя
+            <input type="text" th:value="${editStudent.name}" th:name="name">
+        </label>
+        <br/><br/>
+        <label>
+            Отчество
+            <input type="text" th:value="${editStudent.patronymic}" th:name="patronymic">
+        </label>
+        <br/><br/>
+        <table>
+            <tr>
+                <th>Группа</th>
+                <th> ::</th>
+                <th>Основа обучения</th>
+            </tr>
+        </table>
+        <th:block th:each="group : ${groupList}">
+            <label>
+                <span th:text="${group.name}"></span>
+                <input type="checkbox"
+                       th:name="groups"
+                       th:checked="${#lists.contains(studentGroups, group)}"
+                       th:value="${group.id}"/>
+            </label>
+            <span> :: </span>
+            <select th:name="payments">
+                <option selected th:value="${null}">Не выбрано</option>
+                <option th:selected="${#lists.contains(studentGroups, group)}" th:value="${true}"
+                        th:text="Бюджет"></option>
+                <option th:value="${false}" th:text="Договор"></option>
+            </select>
+            <br/><br/>
+        </th:block>
+        <br/>
+        <input type="submit" th:value="Изменить">
+    </form>
+    <br/><br/>
+    <a href="/students">Вернуться к списку студентов</a>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
