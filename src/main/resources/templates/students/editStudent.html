@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg" style="background-color: #00446d;">
     <div class="container-fluid">
-        <a class="navbar-brand link-light" href="/">МЭС <span th:text="${name}"></span></a>
+        <a class="navbar-brand link-light" href="/">МЭС</a>
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -46,51 +46,68 @@
     </div>
 </nav>
 <div class="container">
-    <h1>Просмотр и редактирование данных студента</h1>
+    <h1 class="display-6">Просмотр и редактирование данных студента</h1>
     <form action="#" th:action="@{/students/{id}(id=${editStudent.getId()})}" th:method="PUT">
-        <label>
-            Фамилия
-            <input type="text" th:value="${editStudent.surname}" th:name="surname">
-        </label>
-        <br/><br/>
-        <label>
-            Имя
-            <input type="text" th:value="${editStudent.name}" th:name="name">
-        </label>
-        <br/><br/>
-        <label>
-            Отчество
-            <input type="text" th:value="${editStudent.patronymic}" th:name="patronymic">
-        </label>
-        <br/><br/>
-        <table>
-            <tr>
-                <th>Группа</th>
-                <th> ::</th>
-                <th>Основа обучения</th>
-            </tr>
-        </table>
+        <div class="row g-2">
+            <div class="col-form-label col-sm-3">
+                <label for="inputSurname" class="form-label">Фамилия</label>
+                <input type="text"
+                       th:value="${editStudent.surname}"
+                       th:name="surname"
+                       class="form-control"
+                       id="inputSurname"/>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col-form-label col-sm-3">
+                <label for="inputName" class="form-label">Имя</label>
+                <input type="text" th:value="${editStudent.name}" th:name="name" class="form-control" id="inputName">
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col-form-label col-sm-3">
+                <label for="inputPatronymic" class="form-label">Отчество</label>
+                <input type="text"
+                       th:value="${editStudent.patronymic}"
+                       th:name="patronymic"
+                       class="form-control"
+                       id="inputPatronymic">
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col-sm-2">Группа</div>
+            <div class="col-sm-2">Основа обучения</div>
+        </div>
         <th:block th:each="group : ${groupList}">
-            <label>
-                <span th:text="${group.name}"></span>
-                <input type="checkbox"
-                       th:name="groups"
-                       th:checked="${#lists.contains(studentGroups, group)}"
-                       th:value="${group.id}"/>
-            </label>
-            <span> :: </span>
-            <select th:name="payments">
-                <option selected th:value="${null}">Не выбрано</option>
-                <option th:selected="${#lists.contains(studentGroups, group)}" th:value="${true}"
-                        th:text="Бюджет"></option>
-                <option th:value="${false}" th:text="Договор"></option>
-            </select>
-            <br/><br/>
+            <div class="row g-2 my-3">
+                <div class="form-check col-sm-2">
+                    <label class="form-check-label"
+                           th:for="${group.name} + groupsCheck"
+                           th:text="${group.name}"></label>
+                    <input type="checkbox"
+                           th:name="groups"
+                           th:checked="${#lists.contains(studentGroups, group)}"
+                           th:value="${group.id}"
+                           class="form-check-input"/>
+                </div>
+
+                <div class="col-sm-2">
+                    <select th:name="payments" class="form-select">
+                        <option selected th:value="${null}">Не выбрано</option>
+                        <option th:selected="${#lists.contains(studentGroups, group)}" th:value="${true}"
+                                th:text="Бюджет"></option>
+                        <option th:value="${false}" th:text="Договор"></option>
+                    </select>
+                </div>
+            </div>
         </th:block>
-        <br/>
-        <input type="submit" th:value="Изменить">
+        <div class="row g-2">
+            <button type="submit" class="btn col-sm-2 text-light mb-3" style="background-color: #00446d;">
+                Изменить
+            </button>
+        </div>
     </form>
-    <br/><br/>
+
     <a href="/students">Вернуться к списку студентов</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"

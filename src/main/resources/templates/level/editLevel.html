@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg" style="background-color: #00446d;">
     <div class="container-fluid">
-        <a class="navbar-brand link-light" href="/">МЭС <span th:text="${name}"></span></a>
+        <a class="navbar-brand link-light" href="/">МЭС</a>
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -45,24 +45,25 @@
         </div>
     </div>
 </nav>
-<div class="container">
-    <h1>Просмотр и редактирование уровня образования</h1>
+<div class="container mt-4">
+    <h1 class="display-6">Просмотр и редактирование уровня образования</h1>
     <form action="#" th:action="@{/levels/{id}(id=${editLevel.getId()})}" th:method="PUT" th:object="${editLevel}">
-        <label>
-            Название
-            <input type="text" th:field="*{name}">
-        </label>
-        <br/><br/>
-        <input type="submit" th:value="Изменить">
+        <div class="row g-2">
+            <div class="col-sm-3">
+                <label for="inputEditName" class="form-label">Название</label>
+                <input type="text" th:field="*{name}" id="inputEditName" class="form-control"/>
+            </div>
+        </div>
+        <button type="submit" class="btn col-sm-1 my-4 text-light" style="background-color: #00446d;">
+            Изменить
+        </button>
     </form>
-    <br/>
+
     <form action="#" th:action="@{/levels/{id}(id=${editLevel.getId()})}" th:method="DELETE" th:object="${editLevel}">
-        <input type="submit" th:value="Удалить">
+        <button type="submit" class="btn btn-outline-danger mb-3">Удалить</button>
     </form>
-    <br/><br/>
+
     <a href="/forms">Вернуться к списку уровней образования</a>
-    <br/><br/>
-    <a href="/">Вернуться на главную</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
