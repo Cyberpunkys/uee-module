@@ -1,5 +1,6 @@
 package ru.vstu.ueemodule.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import ru.vstu.ueemodule.domain.Speciality;
 import ru.vstu.ueemodule.repository.SpecialityRepository;
@@ -30,5 +31,14 @@ public class SpecialityService {
 
     public void createSpeciality(Speciality speciality) {
         specialityRepository.save(speciality);
+    }
+
+    public void editSpeciality(Speciality specialityFromDb, Speciality editedLevel) {
+        BeanUtils.copyProperties(editedLevel, specialityFromDb);
+        specialityRepository.save(specialityFromDb);
+    }
+
+    public void deleteSpeciality(Speciality specialityToDelete) {
+        specialityRepository.delete(specialityToDelete);
     }
 }
