@@ -26,6 +26,10 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private Set<Seat> seats = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User owner;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

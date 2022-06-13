@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.vstu.ueemodule.domain.User;
 import ru.vstu.ueemodule.service.UserService;
 
@@ -24,7 +25,14 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registerNewUser(User user, Model model) {
-        return userService.createUser(user, model);
+    public String registerNewUser(
+            User user,
+            Model model,
+            @RequestParam("surname") String surname,
+            @RequestParam("name") String name,
+            @RequestParam("patronymic") String patronymic,
+            @RequestParam("retype") String retype
+    ) {
+        return userService.createUser(user, model, surname, name, patronymic, retype);
     }
 }

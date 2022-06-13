@@ -10,6 +10,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class Level {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)

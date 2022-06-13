@@ -55,6 +55,24 @@
             <form th:action="@{/registration}" method="post">
                 <div class="row g-2">
                     <div class="col-md-5">
+                        <label for="inputSurname" class="form-label">Фамилия:</label>
+                        <input type="text" th:name="surname" id="inputSurname" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-5">
+                        <label for="inputName" class="form-label">Имя:</label>
+                        <input type="text" th:name="name" id="inputName" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-5">
+                        <label for="inputPatronymic" class="form-label">Отчество:</label>
+                        <input type="text" th:name="patronymic" id="inputPatronymic" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-5">
                         <label for="inputLogin" class="form-label">Адрес почты:</label>
                         <input type="text" name="username" id="inputLogin" class="form-control"/>
                     </div>
@@ -64,17 +82,25 @@
                         <label for="inputPassword" class="form-label">Пароль:</label>
                         <input type="password" name="password" id="inputPassword" class="form-control"/>
                     </div>
-                    <div class="row g-2">
-                        <div class="col col-sm-4">
-                            <button type="submit" class="btn text-light mt-3" style="background-color: #00446d">
-                                Зарегистрироваться
-                            </button>
-                        </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-5">
+                        <label for="inputPasswordRetype" class="form-label">Повторите пароль:</label>
+                        <input type="password" th:name="retype" id="inputPasswordRetype" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col col-sm-4">
+                        <button type="submit" class="btn text-light mt-4" style="background-color: #00446d">
+                            Зарегистрироваться
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
+    <a href="/" class="row mt-4">Вернуться на главную</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"

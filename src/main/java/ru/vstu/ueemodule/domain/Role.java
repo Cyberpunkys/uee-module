@@ -1,6 +1,13 @@
 package ru.vstu.ueemodule.domain;
 
-public enum Role {
+import org.springframework.security.core.GrantedAuthority;
 
-    USER
+public enum Role implements GrantedAuthority {
+
+    USER;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }
