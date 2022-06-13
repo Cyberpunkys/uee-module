@@ -1,5 +1,6 @@
 package ru.vstu.ueemodule.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import ru.vstu.ueemodule.service.SpecialityService;
 
 @Controller
 @RequestMapping("/groups")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class GroupController {
     private final GroupService groupService;
     private final FormService formService;

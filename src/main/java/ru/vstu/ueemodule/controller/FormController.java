@@ -1,5 +1,6 @@
 package ru.vstu.ueemodule.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import ru.vstu.ueemodule.service.FormService;
 
 @Controller
 @RequestMapping("/forms")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class FormController {
 
     private final FormService formService;

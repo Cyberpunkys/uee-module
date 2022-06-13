@@ -6,8 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Подробная информация об уровне образования</title>
-    <link rel="icon" href="/static/favicon.png"/>
+    <title>Список пользователей</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
@@ -54,25 +53,45 @@
         </div>
     </div>
 </nav>
-<div class="container mt-4">
-    <h1 class="display-6">Просмотр и редактирование уровня образования</h1>
-    <form action="#" th:action="@{/levels/{id}(id=${editLevel.getId()})}" th:method="PUT" th:object="${editLevel}">
-        <div class="row g-2">
-            <div class="col-sm-3">
-                <label for="inputEditName" class="form-label">Название</label>
-                <input type="text" th:field="*{name}" id="inputEditName" class="form-control"/>
-            </div>
-        </div>
-        <button type="submit" class="btn col-sm-1 my-4 text-light" style="background-color: #00446d;">
-            Изменить
-        </button>
-    </form>
+<div class="container-fluid mx-1 my-4">
+    <h1 class="display-5">Список пользователей системы</h1>
+    <table class="table table-striped table-hover caption-top">
+        <caption>Всего пользователей: <span th:text="${usersCount}"></span></caption>
+        <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Группы</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${users.isEmpty()}">
+            <td colspan="5"> В результате запроса пользователей нет</td>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.id}">Id</span></td>
+            <td><span th:text="${user.username}">Email</span></td>
+            <td><span th:text="${user.student?.surname}">Surname</span></td>
+            <td><span th:text="${user.student?.name}">Name</span></td>
+            <td><span th:text="${user.student?.patronymic}">Patronymic</span></td>
+            <td>
+                <th:block th:each="seat : ${user.student?.seats}">
+                    <table>
+                        <tr>
+                            <td><span th:text="${seat.group?.name} + ' :'"> GroupName </span></td>
+                            <td><span th:text="${seat.isBudget} ? 'Бюджет' : 'Договор'"> isBudget </span></td>
+                        </tr>
+                    </table>
+                </th:block>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-    <form action="#" th:action="@{/levels/{id}(id=${editLevel.getId()})}" th:method="DELETE" th:object="${editLevel}">
-        <button type="submit" class="btn btn-outline-danger mb-3">Удалить</button>
-    </form>
-
-    <a href="/forms">Вернуться к списку уровней образования</a>
+    <a href="/">Вернуться на главную</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"

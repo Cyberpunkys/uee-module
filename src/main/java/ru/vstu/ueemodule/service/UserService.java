@@ -12,6 +12,7 @@ import ru.vstu.ueemodule.repository.StudentRepository;
 import ru.vstu.ueemodule.repository.UserRepository;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -53,6 +54,14 @@ public class UserService implements UserDetailsService {
         studentRepository.save(matchedStudentFromDb);
 
         return "redirect:/";
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public long count() {
+        return userRepository.count();
     }
 
     @Override
