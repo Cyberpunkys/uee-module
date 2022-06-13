@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Электронная среда университета</title>
+    <title>Регистрация - Электронная среда университета</title>
     <link rel="icon" href="/static/favicon.png"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -17,7 +16,7 @@
 <body>
 <nav class="navbar navbar-expand-lg" style="background-color: #00446d;">
     <div class="container-fluid">
-        <a class="navbar-brand link-light" href="/">МЭС <span th:text="${name}"></span></a>
+        <a class="navbar-brand link-light" href="/">МЭС</a>
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -45,33 +44,15 @@
                     <a class="nav-link link-light" href="/levels">Уровни образования</a>
                 </li>
             </ul>
-            <div class="navbar-text text-light mx-2" th:inline="text">[[${#httpServletRequest.remoteUser}]]</div>
-            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="d-flex">
-                <button type="submit" class="btn btn-outline-info">Выйти</button>
-            </form>
         </div>
     </div>
 </nav>
 <div class="container mt-3">
-    <h1 class="display-6">Модуль электронной среды <span th:text="${name}"></span></h1>
-    <div class="row g-2 my-3">
-        <div th:if="${param.error}" class="alert alert-danger" role="alert">
-            Неверное имя пользователя или пароль
-        </div>
-        <div th:if="${param.logout}" class="alert alert-info" role="alert">
-            Вы успешно вышли из системы
-        </div>
-        <div sec:authorize="isAuthenticated()" class="alert alert-success" role="alert">
-            Вы успешно вошли в систему
-        </div>
-    </div>
+    <h1 class="display-6 mb-2">Регистрация</h1>
+    <div th:if="${errorMessage} != null" th:text="${errorMessage}" class="alert alert-danger" role="alert"></div>
     <div class="row">
-        <div class="col">
-            <img src="/static/main.png" alt="Логотип МЭС">
-        </div>
         <div class="col-9 mb-3">
-            <form sec:authorize="!isAuthenticated()" th:action="@{/login}" method="post">
-                <div class="row g-2 h4 mt-3">Вход в систему</div>
+            <form th:action="@{/registration}" method="post">
                 <div class="row g-2">
                     <div class="col-md-5">
                         <label for="inputLogin" class="form-label">Адрес почты:</label>
@@ -84,24 +65,14 @@
                         <input type="password" name="password" id="inputPassword" class="form-control"/>
                     </div>
                     <div class="row g-2">
-                        <div class="col-sm-3">
-                            <button type="submit" class="btn text-light mt-3" style="background-color: #00446d">Войти
+                        <div class="col col-sm-4">
+                            <button type="submit" class="btn text-light mt-3" style="background-color: #00446d">
+                                Зарегистрироваться
                             </button>
-                        </div>
-                        <div class="col">
-                            <a href="/registration">Зарегистрироваться</a>
                         </div>
                     </div>
                 </div>
             </form>
-            <div sec:authorize="isAuthenticated()">
-                <div class="mt-4 h1">
-                    Добро пожаловать, <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
-                </div>
-                <div class="display-6">
-                    Для навигации по системе воспользуйтесь верхним меню.
-                </div>
-            </div>
         </div>
     </div>
 </div>
