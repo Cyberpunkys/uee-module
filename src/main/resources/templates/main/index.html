@@ -91,6 +91,14 @@
                     </div>
                 </div>
             </form>
+            <div sec:authorize="isAuthenticated()">
+                <div class="mt-4 h1">
+                    Добро пожаловать, <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
+                </div>
+                <div class="display-6">
+                    Для навигации по системе воспользуйтесь верхним меню.
+                </div>
+            </div>
         </div>
     </div>
 </div>

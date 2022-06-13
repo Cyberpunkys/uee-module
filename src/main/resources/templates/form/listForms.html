@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -41,7 +43,10 @@
                     <a class="nav-link link-light" href="/levels">Уровни образования</a>
                 </li>
             </ul>
-            <div class="navbar-text text-light">Test</div>
+            <div class="navbar-text text-light mx-2" th:inline="text">[[${#httpServletRequest.remoteUser}]]</div>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="d-flex">
+                <button type="submit" class="btn btn-outline-info">Выйти</button>
+            </form>
         </div>
     </div>
 </nav>
