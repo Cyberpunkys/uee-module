@@ -45,12 +45,6 @@
                 <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                     <a class="nav-link link-light" href="/users">Пользователи</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAuthority('USER')">
-                    <a class="nav-link link-light" href="/vaccination">Сведения о вакцинации от COVID-19</a>
-                </li>
-                <li class="nav-item" sec:authorize="hasAuthority('USER')">
-                    <a class="nav-link link-light" href="/charters">Мои грамоты</a>
-                </li>
             </ul>
             <div class="navbar-text text-light mx-2" th:inline="text">[[${#httpServletRequest.remoteUser}]]</div>
             <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="d-flex">
