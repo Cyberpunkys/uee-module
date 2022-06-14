@@ -86,12 +86,9 @@ public class UserService implements UserDetailsService {
             LocalDate injectionDate,
             Model model
     ) throws IOException {
-
-        log.info(user.toString());
-
         Student associatedStudent = user.getStudent();
-
-        log.info(associatedStudent.toString());
+        associatedStudent.setCertificateFilename(null);
+        associatedStudent.setInjectionDate(null);
 
         String certificateOriginalFilename = certificate.getOriginalFilename();
 

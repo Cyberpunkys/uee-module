@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,6 +37,10 @@ public class Student {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User owner;
+
+    public boolean hasExpiredVaccineNow() {
+        return ChronoUnit.DAYS.between(injectionDate, LocalDate.now(ZoneId.of("Europe/Moscow"))) > 365;
+    }
 
     @Override
     public boolean equals(Object o) {

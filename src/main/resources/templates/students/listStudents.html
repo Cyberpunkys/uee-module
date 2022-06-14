@@ -117,16 +117,19 @@
         <caption>Всего студентов: <span th:text="${studentsCount}"></span></caption>
         <thead class="table-dark">
         <tr>
-            <th> Id</th>
-            <th> Фамилия</th>
-            <th> Имя</th>
-            <th> Отчество</th>
-            <th> Группы</th>
+            <th>Id</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Группы</th>
+            <th>QR-код</th>
+            <th>Дата вакцинации</th>
+            <th>Актуальность QR-кода</th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${studentsList.isEmpty()}">
-            <td colspan="4"> В результате запроса студентов нет</td>
+            <td colspan="8"> В результате запроса студентов нет</td>
         </tr>
         <tr th:each="student : ${studentsList}">
             <td>
@@ -134,18 +137,37 @@
                    th:href="@{/students/{id}(id=${student.getId()})}"
                    title="Редактировать студента"></a>
             </td>
-            <td><span th:text="${student.surname}"> Surname </span></td>
-            <td><span th:text="${student.name}"> Name </span></td>
-            <td><span th:text="${student.patronymic}"> Patronymic </span></td>
+            <td><div th:text="${student.surname}"> Surname </div></td>
+            <td><div th:text="${student.name}"> Name </div></td>
+            <td><div th:text="${student.patronymic}"> Patronymic </div></td>
             <td>
                 <th:block th:each="seat : ${student.seats}">
                     <table>
                         <tr>
-                            <td><span th:text="${seat.group?.name} + ' :'"> GroupName </span></td>
-                            <td><span th:text="${seat.isBudget} ? 'Бюджет' : 'Договор'"> isBudget </span></td>
+                            <td><div th:text="${seat.group?.name} + ' : '"> GroupName </div></td>
+                            <td><div th:text="${seat.isBudget} ? 'Бюджет' : 'Договор'"> isBudget </div></td>
                         </tr>
                     </table>
                 </th:block>
+            </td>
+            <td>
+                <div th:if="${student.certificateFilename} != null">
+                    <a th:href="@{/img/{filename}(filename=${student.certificateFilename})}"
+                       target="_blank"
+                       title="Нажмите для увеличения">
+                        <img th:src="@{/img/{filename}(filename=${student.certificateFilename})}"
+                             alt="сертификат о вакцинации"
+                             class="img-thumbnail"
+                             width="100"
+                             height="100"/>
+                    </a>
+                </div>
+            </td>
+            <td><div th:text="${#temporals.format(student?.injectionDate, 'dd.MM.yyyy')}"></div></td>
+            <td>
+                <div th:if="${student.certificateFilename} != null"
+                     th:text="${student.hasExpiredVaccineNow()} ? 'Срок Истек!' : 'Активен'"
+                     th:class="${student.hasExpiredVaccineNow()} ? 'text-danger' : 'text-success'"></div>
             </td>
         </tr>
         </tbody>
