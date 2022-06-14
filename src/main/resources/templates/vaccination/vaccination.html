@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Загрузка сертификата COVID-19 - Электронная среда университета</title>
+    <link rel="icon" href="/static/favicon.png"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" style="background-color: #00446d;">
+    <div class="container-fluid">
+        <a class="navbar-brand link-light" href="/">МЭС</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" sec:authorize="hasAuthority('USER')">
+                    <a class="nav-link link-light" href="/vaccination">Сведения о вакцинации от COVID-19</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAuthority('USER')">
+                    <a class="nav-link link-light" href="/charters">Мои грамоты</a>
+                </li>
+            </ul>
+            <div class="navbar-text text-light mx-2" th:inline="text">[[${#httpServletRequest.remoteUser}]]</div>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="d-flex">
+                <button type="submit" class="btn btn-outline-info">Выйти</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container mt-3">
+    <h1 class="display-6">Загрузка сертификата вакцинации от COVID-19</h1>
+    <div th:if="${successMessage} != null" th:text="${successMessage}" class="alert alert-success" role="alert"></div>
+    <div class="row">
+        <div class="col-9 mb-3">
+            <form th:action="@{/vaccination}" method="post" enctype="multipart/form-data">
+                <div class="row g-2 my-2">
+                    <div class="col-md-5">
+                        <label for="inputCert" class="form-label">Сертификат о вакцинации:</label>
+                        <input type="file" th:name="certificate" id="inputCert" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-5 mt-3">
+                        <label for="inputDate" class="form-label">
+                            Дата введения последнего компонента вакцины:
+                        </label>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-sm-2">
+                        <input type="date" th:name="injectionDate" id="inputDate" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row g-2 mt-3">
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn text-light mt-3" style="background-color: #00446d">
+                            Загрузить
+                        </button>
+                    </div>
+                    <div class="col">
+                        <a href="/" class="btn text-light mt-3" style="background-color: #00446d">
+                            Отмена
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -3,6 +3,8 @@ package ru.vstu.ueemodule.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +24,10 @@ public class Student {
     private String surname;
 
     private String patronymic;
+
+    private String certificateFilename;
+
+    private LocalDate injectionDate;
 
     @OneToMany(mappedBy = "student")
     private Set<Seat> seats = new HashSet<>();
