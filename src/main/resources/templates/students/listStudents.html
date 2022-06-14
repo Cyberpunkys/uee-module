@@ -117,7 +117,7 @@
         <caption>Всего студентов: <span th:text="${studentsCount}"></span></caption>
         <thead class="table-dark">
         <tr>
-            <th>Id</th>
+            <th> </th>
             <th>Фамилия</th>
             <th>Имя</th>
             <th>Отчество</th>
@@ -133,9 +133,10 @@
         </tr>
         <tr th:each="student : ${studentsList}">
             <td>
-                <a th:text="${student.id}"
-                   th:href="@{/students/{id}(id=${student.getId()})}"
-                   title="Редактировать студента"></a>
+                <a th:href="@{/students/{id}(id=${student.getId()})}"
+                   title="Редактировать студента">
+                    <img src="/static/edit.svg" alt="Edit" width="32" height="32">
+                </a>
             </td>
             <td><div th:text="${student.surname}"> Surname </div></td>
             <td><div th:text="${student.name}"> Name </div></td>

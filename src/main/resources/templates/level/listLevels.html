@@ -81,8 +81,8 @@
         <caption>Всего уровней образования: <span th:text="${levelCount}"></span></caption>
         <thead class="table-dark">
         <tr>
-            <th> Id</th>
-            <th> Название</th>
+            <th> </th>
+            <th>Название</th>
         </tr>
         </thead>
         <tbody>
@@ -91,11 +91,12 @@
         </tr>
         <tr th:each="level : ${levelsList}">
             <td>
-                <a th:text="${level.id}"
-                   th:href="@{/levels/{id}(id=${level.getId()})}"
-                   title="Редактировать уровень образования"></a>
+                <a th:href="@{/levels/{id}(id=${level.getId()})}"
+                   title="Редактировать уровень образования">
+                    <img src="/static/edit.svg" alt="Edit" width="32" height="32">
+                </a>
             </td>
-            <td><span th:text="${level.name}"> Название </span></td>
+            <td><div th:text="${level.name}"> Название </div></td>
         </tr>
         </tbody>
     </table>

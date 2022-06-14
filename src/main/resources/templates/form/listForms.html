@@ -81,8 +81,8 @@
         <caption>Всего форм обучения: <span th:text="${formCount}"></span></caption>
         <thead class="table-dark">
         <tr>
-            <th> Id</th>
-            <th> Название</th>
+            <th> </th>
+            <th>Название</th>
         </tr>
         </thead>
         <tbody>
@@ -91,11 +91,12 @@
         </tr>
         <tr th:each="form : ${formList}">
             <td>
-                <a th:text="${form.id}"
-                   th:href="@{/forms/{id}(id=${form.getId()})}"
-                   title="Редактировать форму обучения"></a>
+                <a th:href="@{/forms/{id}(id=${form.getId()})}"
+                   title="Редактировать форму обучения">
+                    <img src="/static/edit.svg" alt="Edit" width="32" height="32">
+                </a>
             </td>
-            <td><span th:text="${form.name}"> Название </span></td>
+            <td><div th:text="${form.name}"> Название </div></td>
         </tr>
         </tbody>
     </table>

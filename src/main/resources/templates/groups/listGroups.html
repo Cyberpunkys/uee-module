@@ -113,23 +113,21 @@
         <caption>Всего групп: <span th:text="${groupCount}"></span></caption>
         <thead class="table-dark">
         <tr>
-            <th> Id</th>
-            <th> Название</th>
-            <th> Специальность</th>
-            <th> Уровень образования</th>
-            <th> Форма обучения</th>
+            <th>Название</th>
+            <th>Специальность</th>
+            <th>Уровень образования</th>
+            <th>Форма обучения</th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${groupList.isEmpty()}">
-            <td colspan="5"> В результате запроса групп нет</td>
+            <td colspan="4"> В результате запроса групп нет</td>
         </tr>
         <tr th:each="group : ${groupList}">
-            <td><span th:text="${group.id}"> Id </span></td>
-            <td><span th:text="${group.name}"> Название </span></td>
-            <td><span th:text="${group.speciality?.name}"> Специальность </span></td>
-            <td><span th:text="${group.level?.name}"> Уровень образования </span></td>
-            <td><span th:text="${group.form?.name}"> Форма обучения </span></td>
+            <td><div th:text="${group.name}"> Название </div></td>
+            <td><div th:text="${group.speciality?.name}"> Специальность </div></td>
+            <td><div th:text="${group.level?.name}"> Уровень образования </div></td>
+            <td><div th:text="${group.form?.name}"> Форма обучения </div></td>
         </tr>
         </tbody>
     </table>

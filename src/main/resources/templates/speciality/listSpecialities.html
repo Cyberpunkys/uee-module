@@ -83,8 +83,8 @@
         <caption>Всего специальностей: <span th:text="${specialityCount}"></span></caption>
         <thead class="table-dark">
         <tr>
-            <th> Id</th>
-            <th> Название</th>
+            <th> </th>
+            <th>Название</th>
         </tr>
         </thead>
         <tbody>
@@ -93,11 +93,12 @@
         </tr>
         <tr th:each="speciality : ${specialitiesList}">
             <td>
-                <a th:text="${speciality.id}"
-                   th:href="@{/specialities/{id}(id=${speciality.getId()})}"
-                   title="Редактировать специальность"></a>
+                <a th:href="@{/specialities/{id}(id=${speciality.getId()})}"
+                   title="Редактировать специальность">
+                    <img src="/static/edit.svg" alt="Edit" width="32" height="32">
+                </a>
             </td>
-            <td><span th:text="${speciality.name}"> Название </span></td>
+            <td><div th:text="${speciality.name}"> Название </div></td>
         </tr>
         </tbody>
     </table>
