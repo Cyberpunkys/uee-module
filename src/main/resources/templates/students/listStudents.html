@@ -167,7 +167,7 @@
             <td><div th:text="${#temporals.format(student?.injectionDate, 'dd.MM.yyyy')}"></div></td>
             <td>
                 <div th:if="${student.certificateFilename} != null"
-                     th:text="${student.hasExpiredVaccineNow()} ? 'Срок Истек!' : 'Активен'"
+                     th:text="${student.hasExpiredVaccineNow()} ? 'Срок истек!' : 'Активен'"
                      th:class="${student.hasExpiredVaccineNow()} ? 'text-danger' : 'text-success'"></div>
             </td>
         </tr>
