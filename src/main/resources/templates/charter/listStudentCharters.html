@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Список грамот</title>
+    <link rel="icon" href="/static/favicon.png"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" style="background-color: #00446d;">
+    <div class="container-fluid">
+        <a class="navbar-brand link-light" href="/">МЭС</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" sec:authorize="hasAuthority('USER')">
+                    <a class="nav-link link-light" href="/vaccination">Сведения о вакцинации от COVID-19</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAuthority('USER')">
+                    <a class="nav-link link-light" href="/charters/my">Мои грамоты</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAuthority('USER')">
+                    <a class="nav-link link-light" href="/courseworks">Мои курсовые</a>
+                </li>
+            </ul>
+            <div class="navbar-text text-light mx-2" th:inline="text">[[${#httpServletRequest.remoteUser}]]</div>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="d-flex">
+                <button type="submit" class="btn btn-outline-info">Выйти</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid mx-1 my-4">
+    <h1 class="display-5">Мои грамоты</h1>
+    <a class="btn text-light my-3"
+       style="background-color: #00446d;"
+       data-bs-toggle="collapse"
+       href="#collapseCreateForm"
+       role="button"
+       aria-expanded="false">
+        Загрузить новую грамоту
+    </a>
+    <div class="collapse" id="collapseCreateForm">
+        <form action="#" th:action="@{/charters}" th:method="POST" th:object="${newCharter}">
+            <div class="row g-2">
+                <div class="col-sm-2">
+                    <label for="inputName" class="form-label">Название</label>
+                    <input type="text" th:field="*{name}" id="inputName" class="form-control"/>
+                </div>
+            </div>
+            <div class="row g-2 my-3">
+                <div class="col-sm-3">
+                    <label class="form-label">
+                        Укажите мероприятие
+                        <select th:field="*{event}" class="form-select">
+                            <option th:each="e : ${eventList}"
+                                    th:value="${e.id}"
+                                    th:text="${e.name + ' : ' + e.organizer}"></option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="row g-2 my-3">
+                <div class="col-sm-2">
+                    <label class="form-label">
+                        Категория
+                        <select th:field="*{category}" class="form-select">
+                            <option th:each="c : ${categoryList}"
+                                    th:value="${c}"
+                                    th:text="${c.getCategoryName()}"></option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn col-sm-1 my-4 text-light" style="background-color: #00446d;">
+                Создать
+            </button>
+        </form>
+    </div>
+    <table class="table table-striped table-hover caption-top">
+        <thead class="table-dark">
+        <tr>
+            <th>Название</th>
+            <th>Тип</th>
+            <th>Мероприятие</th>
+            <th>Организатор</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${charterList.isEmpty()}">
+            <td colspan="4">Грамоты отсутствуют</td>
+        </tr>
+        <tr th:each="my : ${charterList}">
+            <td><div th:text="${my.name}"> Название </div></td>
+            <td><div th:text="${my.category.getCategoryName()}"> Тип </div></td>
+            <td><div th:text="${my.event.name}"> Мероприятие </div></td>
+            <td><div th:text="${my.event.organizer}"> Организатор </div></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/">Вернуться на главную</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
+</html>

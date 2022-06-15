@@ -38,6 +38,12 @@ public class Student {
     @JoinColumn(name = "user_id")
     private User owner;
 
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+    private Set<Charter> charters;
+
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+    private Set<Coursework> courseworks;
+
     public boolean hasExpiredVaccineNow() {
         return ChronoUnit.DAYS.between(injectionDate, LocalDate.now(ZoneId.of("Europe/Moscow"))) > 365;
     }
