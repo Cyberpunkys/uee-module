@@ -33,7 +33,7 @@
                     <a class="nav-link link-light" href="/vaccination">Сведения о вакцинации от COVID-19</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAuthority('USER')">
-                    <a class="nav-link link-light" href="/charters">Мои грамоты</a>
+                    <a class="nav-link link-light" href="/charters/my">Мои грамоты</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAuthority('USER')">
                     <a class="nav-link link-light" href="/courseworks">Мои курсовые</a>
@@ -48,9 +48,9 @@
 </nav>
 <div class="container mt-3">
     <h1 class="display-6">Загрузка сертификата вакцинации от COVID-19</h1>
-    <div th:if="${successMessage} != null"
-         th:text="${successMessage}"
-         class="alert alert-success mt-3"
+    <div th:if="${infoMessage} != null"
+         th:text="${infoMessage}"
+         class="alert alert-info mt-3"
          role="alert"></div>
     <div class="row">
         <div class="col-9 mb-3">

@@ -56,13 +56,11 @@
         Загрузить новую грамоту
     </a>
     <div class="collapse" id="collapseCreateForm">
-        <form action="#" th:action="@{/charters}" th:method="POST" th:object="${newCharter}">
-            <div class="row g-2">
-                <div class="col-sm-2">
-                    <label for="inputName" class="form-label">Название</label>
-                    <input type="text" th:field="*{name}" id="inputName" class="form-control"/>
-                </div>
-            </div>
+        <form action="#"
+              th:action="@{/charters}"
+              th:method="POST"
+              th:object="${newCharter}"
+              enctype="multipart/form-data">
             <div class="row g-2 my-3">
                 <div class="col-sm-3">
                     <label class="form-label">
@@ -87,6 +85,12 @@
                     </label>
                 </div>
             </div>
+            <div class="row g-2 my-2">
+                <div class="col-md-2">
+                    <label for="inputCharter" class="form-label">Наградной документ:</label>
+                    <input type="file" th:name="charterFile" id="inputCharter" class="form-control"/>
+                </div>
+            </div>
             <button type="submit" class="btn col-sm-1 my-4 text-light" style="background-color: #00446d;">
                 Создать
             </button>
@@ -95,21 +99,37 @@
     <table class="table table-striped table-hover caption-top">
         <thead class="table-dark">
         <tr>
-            <th>Название</th>
             <th>Тип</th>
             <th>Мероприятие</th>
             <th>Организатор</th>
+            <th>Документ</th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${charterList.isEmpty()}">
             <td colspan="4">Грамоты отсутствуют</td>
         </tr>
-        <tr th:each="my : ${charterList}">
-            <td><div th:text="${my.name}"> Название </div></td>
-            <td><div th:text="${my.category.getCategoryName()}"> Тип </div></td>
-            <td><div th:text="${my.event.name}"> Мероприятие </div></td>
-            <td><div th:text="${my.event.organizer}"> Организатор </div></td>
+        <tr th:each="charter : ${charterList}">
+            <td>
+                <div th:text="${charter.category.getCategoryName()}"> Тип</div>
+            </td>
+            <td>
+                <div th:text="${charter.event.name}"> Мероприятие</div>
+            </td>
+            <td>
+                <div th:text="${charter.event.organizer}"> Организатор</div>
+            </td>
+            <td>
+                <a th:href="@{/img/{filename}(filename=${charter.filename})}"
+                   target="_blank"
+                   title="Открыть в новой вкладке">
+                    <img th:src="@{/img/{filename}(filename=${charter.filename})}"
+                         alt="Документ"
+                         class="img-thumbnail"
+                         width="100"
+                         height="100"/>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>

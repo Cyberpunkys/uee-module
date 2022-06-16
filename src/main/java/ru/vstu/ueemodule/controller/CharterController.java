@@ -3,15 +3,15 @@ package ru.vstu.ueemodule.controller;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.vstu.ueemodule.domain.Charter;
 import ru.vstu.ueemodule.domain.CharterCategory;
 import ru.vstu.ueemodule.domain.User;
 import ru.vstu.ueemodule.service.CharterService;
 import ru.vstu.ueemodule.service.EventService;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/charters")
@@ -37,8 +37,12 @@ public class CharterController {
     }
 
     @PostMapping
-    public String createCharter(@AuthenticationPrincipal User user, @ModelAttribute("newCharter") Charter charter) {
-        charterService.createCharter(charter, user);
+    public String createCharter(
+            @AuthenticationPrincipal User user,
+            @ModelAttribute("newCharter") Charter charter,
+            @RequestParam("charterFile") MultipartFile charterFile
+    ) throws IOException {
+        charterService.createCharter(charter, user, charterFile);
 
         return "redirect:/charters/my";
     }

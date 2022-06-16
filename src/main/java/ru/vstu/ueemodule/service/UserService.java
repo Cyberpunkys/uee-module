@@ -13,13 +13,12 @@ import ru.vstu.ueemodule.domain.Student;
 import ru.vstu.ueemodule.domain.User;
 import ru.vstu.ueemodule.repository.StudentRepository;
 import ru.vstu.ueemodule.repository.UserRepository;
+import ru.vstu.ueemodule.utils.FileUploadingUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Slf4j
@@ -93,26 +92,18 @@ public class UserService implements UserDetailsService {
         String certificateOriginalFilename = certificate.getOriginalFilename();
 
         if (certificateOriginalFilename == null || certificateOriginalFilename.isEmpty()) {
-            model.addAttribute("successMessage", "Файл не может быть пустым.");
+            model.addAttribute("infoMessage", "Файл не может быть пустым.");
             return;
         }
 
-        File uploadDir = new File(uploadPath);
-
-        if (!uploadDir.exists()) {
-            uploadDir.mkdir();
-        }
-
-        String uuidPrefix = UUID.randomUUID().toString();
-        String resultFilename = uuidPrefix + "." + certificateOriginalFilename;
-        certificate.transferTo(new File(uploadPath + "/" + resultFilename));
+        String resultFilename = FileUploadingUtils.uploadFile(certificate, certificateOriginalFilename, uploadPath);
 
         associatedStudent.setCertificateFilename(resultFilename);
         associatedStudent.setInjectionDate(injectionDate);
 
         studentRepository.save(associatedStudent);
 
-        model.addAttribute("successMessage",
+        model.addAttribute("infoMessage",
                 "Сертификат успешно загружен. Администратор вскоре его проверит.");
     }
 }
