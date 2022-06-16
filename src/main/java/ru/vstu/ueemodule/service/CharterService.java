@@ -37,6 +37,7 @@ public class CharterService {
         String resultFilename = FileUploadingUtils.uploadFile(charterFile, filename, uploadPath);
         charter.setFilename(resultFilename);
         charter.setStudent(user.getStudent());
+
         charterRepository.save(charter);
     }
 }

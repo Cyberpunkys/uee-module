@@ -21,6 +21,8 @@ public class Coursework {
 
     private String name;
 
+    private String filename;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
     private Student student;

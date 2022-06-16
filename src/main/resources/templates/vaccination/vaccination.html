@@ -36,7 +36,7 @@
                     <a class="nav-link link-light" href="/charters/my">Мои грамоты</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAuthority('USER')">
-                    <a class="nav-link link-light" href="/courseworks">Мои курсовые</a>
+                    <a class="nav-link link-light" href="/courseworks/my">Мои курсовые</a>
                 </li>
             </ul>
             <div class="navbar-text text-light mx-2" th:inline="text">[[${#httpServletRequest.remoteUser}]]</div>
