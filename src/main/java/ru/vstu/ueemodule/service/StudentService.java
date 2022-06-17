@@ -14,7 +14,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
 public class StudentService {
     private final StudentRepository studentRepository;
     private final GroupRepository groupRepository;
@@ -43,11 +42,7 @@ public class StudentService {
     }
 
     public void createStudent(Student newStudent, int[] groups, boolean[] payments) {
-        log.info(Arrays.toString(groups));
-        log.info(Arrays.toString(payments));
-        log.info("Equality of arrays' lengths: " + (groups.length == payments.length)); // should be equal
-
-        studentRepository.save(newStudent); // for ID creation sake
+        studentRepository.save(newStudent);
 
         for (int i = 0; i < groups.length; i++) {
             Group currentGroup = groupRepository.findById(groups[i]).orElseThrow(IllegalArgumentException::new);
@@ -65,7 +60,7 @@ public class StudentService {
         return studentRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
-    public List<Group> getStudentGroups(Student student) { // TODO: maybe Set<Group> ?
+    public List<Group> getStudentGroups(Student student) {
         return student.getSeats().stream()
                 .map(Seat::getGroup)
                 .collect(Collectors.toList());

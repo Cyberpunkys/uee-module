@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Список пользователей</title>
+    <title>Статистика по вакцинации</title>
+    <link rel="icon" href="/static/favicon.png"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
@@ -59,43 +60,36 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid mx-1 my-4">
-    <h1 class="display-5">Список пользователей системы</h1>
-    <table class="table table-striped table-hover caption-top">
-        <caption>Всего пользователей: <span th:text="${usersCount}"></span></caption>
-        <thead class="table-dark">
-        <tr>
-            <th>Id</th>
-            <th>Email</th>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Группы</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${users.isEmpty()}">
-            <td colspan="5"> В результате запроса пользователей нет</td>
-        </tr>
-        <tr th:each="user : ${users}">
-            <td><span th:text="${user.id}">Id</span></td>
-            <td><span th:text="${user.username}">Email</span></td>
-            <td><span th:text="${user.student?.surname}">Surname</span></td>
-            <td><span th:text="${user.student?.name}">Name</span></td>
-            <td><span th:text="${user.student?.patronymic}">Patronymic</span></td>
-            <td>
-                <th:block th:each="seat : ${user.student?.seats}">
-                    <table>
-                        <tr>
-                            <td><span th:text="${seat.group?.name} + ' :'"> GroupName </span></td>
-                            <td><span th:text="${seat.isBudget} ? 'Бюджет' : 'Договор'"> isBudget </span></td>
-                        </tr>
-                    </table>
-                </th:block>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <h1 class="my-5">Статистика по вакцинации</h1>
+    <div class="row g-2 mb-3">
+        <div class="col h3">Студентов с сертификатами:</div>
+        <div class="col-8 h3 text-primary fw-bolder">
+            <span th:text="${studentsVaccinated}"></span> из <span th:text="${studsCnt}"></span>
+            (<span th:text="${percent} + '%'"></span>)
+        </div>
+    </div>
+
+    <div class="row g-2 mb-3">
+        <div class="col h3">Сертификатов за текущий: <span th:text="${currentYear}"></span> год</div>
+        <div th:text="${vaccineCurrYear}" class="col-8 h3 text-primary fw-bolder"></div>
+    </div>
+    <div class="row g-2 mb-3">
+        <div class="col h3">Сертификатов за прошлый: <span th:text="${pastYear}"></span> год</div>
+        <div th:text="${vaccinePastYear}" class="col-8 h3 text-primary fw-bolder"></div>
+    </div>
+    <div class="row g-2 mb-3">
+        <div class="col h3">Сертификатов более старых: (истекли)</div>
+        <div th:text="${vaccinesOld}" class="col-8 h3 text-danger fw-bolder"></div>
+    </div>
+    <div class="row g-2 mb-3">
+        <div class="col h3">Действующих сертификатов:</div>
+        <div th:text="${activeCerts}" class="col-8 h3 text-success fw-bolder"></div>
+    </div>
+    <div class="row g-2 mb-3">
+        <div class="col h3">Просроченных:</div>
+        <div th:text="${expiredCerts}" class="col-8 h3 text-danger fw-bolder"></div>
+    </div>
 
     <a href="/">Вернуться на главную</a>
 </div>
