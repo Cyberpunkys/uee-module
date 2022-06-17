@@ -1,5 +1,6 @@
 package ru.vstu.ueemodule.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import ru.vstu.ueemodule.service.EventService;
 
 @Controller
 @RequestMapping("/events")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class EventController {
 
     private final EventService eventService;

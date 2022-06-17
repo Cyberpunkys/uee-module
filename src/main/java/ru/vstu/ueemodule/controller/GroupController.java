@@ -17,6 +17,7 @@ import ru.vstu.ueemodule.service.SpecialityService;
 @RequestMapping("/groups")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class GroupController {
+
     private final GroupService groupService;
     private final FormService formService;
     private final SpecialityService specialityService;
