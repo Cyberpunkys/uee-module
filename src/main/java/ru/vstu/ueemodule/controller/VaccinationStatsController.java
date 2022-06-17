@@ -55,6 +55,6 @@ public class VaccinationStatsController {
         model.addAttribute("activeCerts", activeCerts);
         model.addAttribute("expiredCerts", expiredCerts);
 
-        return "vaccinationStats";
+        return "stats/vaccinationStats";
     }
 }

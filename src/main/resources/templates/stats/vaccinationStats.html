@@ -7,7 +7,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Статистика по вакцинации</title>
-    <link rel="icon" href="/static/favicon.png"/>
+    <link rel="icon" href="/favicon.png"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
@@ -16,7 +16,7 @@
 <body>
 <nav class="navbar navbar-expand-lg" style="background-color: #00446d;">
     <div class="container-fluid">
-        <a class="navbar-brand link-light" href="/">МЭС</a>
+        <a class="navbar-brand link-light" href="/static">МЭС</a>
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -91,7 +91,7 @@
         <div th:text="${expiredCerts}" class="col-8 h3 text-danger fw-bolder"></div>
     </div>
 
-    <a href="/">Вернуться на главную</a>
+    <a href="/static">Вернуться на главную</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
