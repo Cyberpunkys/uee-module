@@ -1,8 +1,6 @@
 package ru.vstu.ueemodule.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.ArrayUtils;
 import ru.vstu.ueemodule.domain.Group;
 import ru.vstu.ueemodule.domain.Seat;
 import ru.vstu.ueemodule.domain.Student;
@@ -37,9 +35,15 @@ public class StudentService {
         return studentRepository.count();
     }
 
-    public void createStudent(Student newStudent, int[] groups, boolean[] payments) {
+    public void createStudent(Student newStudent, int[] groups, Boolean[] payments) {
         studentRepository.save(newStudent);
 
+        associateStudentWithGroups(newStudent, groups, payments);
+
+        studentRepository.save(newStudent);
+    }
+
+    private void associateStudentWithGroups(Student newStudent, int[] groups, Boolean[] payments) {
         for (int i = 0; i < groups.length; i++) {
             Group currentGroup = groupRepository.findById(groups[i]).orElseThrow(IllegalArgumentException::new);
             Seat seat = new Seat();
@@ -49,7 +53,6 @@ public class StudentService {
             seatRepository.save(seat);
             newStudent.getSeats().add(seat);
         }
-        studentRepository.save(newStudent);
     }
 
     public Student getOne(Integer id) {
@@ -74,15 +77,7 @@ public class StudentService {
         seatRepository.deleteAll(studentSeats);
         studentSeats.clear();
 
-        for (int i = 0; i < groups.length; i++) {
-            Group currentGroup = groupRepository.findById(groups[i]).orElseThrow(IllegalArgumentException::new);
-            Seat seat = new Seat();
-            seat.setStudent(studentFromDb);
-            seat.setGroup(currentGroup);
-            seat.setIsBudget(filteredPayments[i]);
-            seatRepository.save(seat);
-            studentFromDb.getSeats().add(seat);
-        }
+        associateStudentWithGroups(studentFromDb, groups, filteredPayments);
     }
 
     public List<Student> findAllOrderBySurname() {

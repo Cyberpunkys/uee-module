@@ -36,7 +36,7 @@ public class StudentController {
     public String createStudent(
             @ModelAttribute("newStudent") Student newStudent,
             @RequestParam(name = "groups") int[] groups,
-            @RequestParam(name = "payments") boolean[] payments
+            @RequestParam(name = "payments") Boolean[] payments
     ) {
         studentService.createStudent(newStudent, groups, payments);
 
