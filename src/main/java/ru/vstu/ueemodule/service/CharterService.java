@@ -11,6 +11,7 @@ import ru.vstu.ueemodule.utils.FileUploadingUtils;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class CharterService {
@@ -33,8 +34,9 @@ public class CharterService {
     }
 
     public void createCharter(Charter charter, User user, MultipartFile charterFile) throws IOException {
-        String filename = charterFile.getOriginalFilename();
-        String resultFilename = FileUploadingUtils.uploadFile(charterFile, filename, uploadPath);
+        String originalFilename = charterFile.getOriginalFilename();
+        String latinFilename = FileUploadingUtils.cyr2lat(originalFilename.toLowerCase(Locale.ROOT));
+        String resultFilename = FileUploadingUtils.uploadFile(charterFile, latinFilename, uploadPath);
         charter.setFilename(resultFilename);
         charter.setStudent(user.getStudent());
 

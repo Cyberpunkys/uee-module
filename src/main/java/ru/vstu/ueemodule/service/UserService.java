@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @Slf4j
@@ -96,7 +97,8 @@ public class UserService implements UserDetailsService {
             return;
         }
 
-        String resultFilename = FileUploadingUtils.uploadFile(certificate, certificateOriginalFilename, uploadPath);
+        String latinFilename = FileUploadingUtils.cyr2lat(certificateOriginalFilename.toLowerCase(Locale.ROOT));
+        String resultFilename = FileUploadingUtils.uploadFile(certificate, latinFilename, uploadPath);
 
         associatedStudent.setCertificateFilename(resultFilename);
         associatedStudent.setInjectionDate(injectionDate);
@@ -104,6 +106,6 @@ public class UserService implements UserDetailsService {
         studentRepository.save(associatedStudent);
 
         model.addAttribute("infoMessage",
-                "Сертификат успешно загружен. Администратор вскоре его проверит.");
+                "Сертификат успешно загружен.");
     }
 }

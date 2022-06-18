@@ -24,7 +24,7 @@ public class StudentController {
 
     @GetMapping
     public String studentsList(Model model) {
-        model.addAttribute("studentsList", studentService.findAll());
+        model.addAttribute("studentsList", studentService.findAllOrderBySurname());
         model.addAttribute("newStudent", new Student());
         model.addAttribute("studentsCount", studentService.count());
         model.addAttribute("groupList", groupService.findAll());

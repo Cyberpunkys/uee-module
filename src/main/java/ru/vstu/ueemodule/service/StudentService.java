@@ -30,11 +30,7 @@ public class StudentService {
     }
 
     public List<Student> findAll() {
-        Iterable<Student> repositoryAll = studentRepository.findAll();
-        List<Student> students = new ArrayList<>();
-        repositoryAll.forEach(students::add);
-
-        return students;
+        return studentRepository.findAll();
     }
 
     public Long count() {
@@ -87,5 +83,9 @@ public class StudentService {
             seatRepository.save(seat);
             studentFromDb.getSeats().add(seat);
         }
+    }
+
+    public List<Student> findAllOrderBySurname() {
+        return studentRepository.findByOrderBySurnameAsc();
     }
 }
