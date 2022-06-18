@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,12 +30,19 @@ public class UserService implements UserDetailsService {
 
     private final StudentRepository studentRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Value("${upload.path}")
     private String uploadPath;
 
-    public UserService(UserRepository userRepository, StudentRepository studentRepository) {
+    public UserService(
+            UserRepository userRepository,
+            StudentRepository studentRepository,
+            PasswordEncoder passwordEncoder
+    ) {
         this.userRepository = userRepository;
         this.studentRepository = studentRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public String createUser(User user, Model model, String surname, String name, String patronymic, String retype) {
@@ -59,6 +67,7 @@ public class UserService implements UserDetailsService {
         }
 
         user.setEnabled(true);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singleton(Role.USER));
         userRepository.save(user);
         matchedStudentFromDb.setOwner(user);

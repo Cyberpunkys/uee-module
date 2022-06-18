@@ -4,7 +4,8 @@ public enum CharterCategory {
 
     CHARTER("Грамота"),
     THANKS_LETTER("Благодарственное письмо"),
-    DIPLOMA("Диплом");
+    DIPLOMA("Диплом"),
+    CERTIFICATE("Сертификат");
 
     private final String categoryName;
 

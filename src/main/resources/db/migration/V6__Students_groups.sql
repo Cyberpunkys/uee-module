@@ -1,0 +1,22 @@
+insert into seat(student_id, group_id, is_budget)
+values
+    (33, 14, true),
+    (35, 16, true),
+    (36, 17, false),
+    (37, 18, true),
+    (38, 25, true),
+    (39, 26, false),
+    (40, 27, false),
+    (41, 28, true),
+    (42, 29, true),
+    (42, 30, false),
+    (43, 31, true),
+    (43, 32, true),
+    (44, 17, false),
+    (45, 27, true),
+    (46, 14, true),
+    (46, 17, false),
+    (47, 29, true),
+    (48, 18, true),
+    (48, 25, false),
+    (34, 15, true);
